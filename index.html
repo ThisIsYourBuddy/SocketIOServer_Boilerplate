@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <title>Socket Client</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+        <style>
+            .button {
+                position: relative;
+                border: none;
+                font-size: 28px;
+                color: #FFFFFF;
+                padding: 20px;
+                width: 200px;
+                text-align: center;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                text-decoration: none;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            
+            .button:after {
+                content: "";
+                background: #ecf0f1;
+                display: block;
+                position: absolute;
+                padding-top: 300%;
+                padding-left: 350%;
+                margin-left: -20px!important;
+                margin-top: -120%;
+                opacity: 0;
+                transition: all 0.8s
+            }
+            
+            .button:active:after {
+                padding: 0;
+                margin: 0;
+                opacity: 1;
+                transition: 0s
+            }
+        </style>
+    </head>
+    <body>
+        <div style="width: 100%; height: 100vh; display: flex;">
+            <div class="button" id="first" style="background-color: #4CAF50; margin: 10; width: 250px; height: 100px; display: flex; justify-content: center; align-items: center; ">
+                Face Recognised
+            </div>
+
+            <div class="button" id="second" style="background-color: #c0392b; margin: 10; width: 250px; height: 100px; display: flex; justify-content: center; align-items: center; ">
+                End Conversation
+            </div>
+
+            <div class="button" id="third" style="background-color: #f39c12; margin: 10; width: 250px; height: 100px; display: flex; justify-content: center; align-items: center; ">
+                Kill Conversation
+            </div>
+        </div>
+        <script>
+            var socket = io.connect('http://localhost:3333/');
+
+            // Code to listen face_recognised event
+            socket.on('face_recognised', function (data) {
+                console.log(data);
+            });
+
+            // Code to listen end_conversation event
+            socket.on('end_conversation', function () {
+                console.log("End Conversation Triggered");
+            });
+
+            // Code to listen kill_conversation event
+            socket.on('kill_conversation', function () {
+                console.log("Kill Conversation Triggered");
+            });
+
+            // code to trigger face_recognised event
+            document.getElementById("first").addEventListener('click', function(){
+                socket.emit('face_recognised', {name: 'Gireesh Bandlamudi'});
+            })
+
+            // code to trigger end_conversation event
+            document.getElementById("second").addEventListener('click', function(){
+                socket.emit('end_conversation');
+            })
+
+            // code to trigger kill_conversation event.
+            document.getElementById("third").addEventListener('click', function(){
+                socket.emit('kill_conversation');
+            })
+        </script>
+    </body>
+</html>
