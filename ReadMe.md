@@ -1,5 +1,7 @@
-Before you use it, Please follow the instructions below.
+<h2>Before you use it, Please follow the instructions below.</h2><br />
 
-Please run the following commands
-step 1: npm install
-step 2: node index.js
+<b>Please run the following commands</b>
+<ul>
+  <li>step 1: npm install</li>
+  <li>step 2: node index.js</li>
+</ul>
